@@ -1,26 +1,57 @@
-import React from 'react';
+
 import logo from './logo.svg';
 import './App.css';
+import Lottie from 'react-lottie';
+import lottie from 'lottie-web'
+import check from './check.json'
+import React, { Component } from 'react'
 
-function App() {
-  return (
-    <div className="App">
+export default class App extends Component {
+  constructor(props) {
+    super(props)
+  
+    this.state = {
+      isStopped: false, 
+      isPaused: false
+    }
+  }
+
+  onMouseOverHandle = () => {
+    console.log('hover')
+  }
+  
+  componentDidMount() {
+    lottie.loadAnimation({
+      container: this.checkRef, // the dom element that will contain the animation
+      renderer: 'svg',
+      loop: true,
+      autoplay: true,
+      animationData: check // the path to the animation json
+    })
+  }
+
+
+  render() {
+    
+    const defaultOptions = {
+      loop: true,
+      autoplay: true,
+      animationData: check,
+    };
+
+    return (
+  
+        <div>
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+        <div>
+          <Lottie options={defaultOptions} 
+          height={400} 
+          width={400}
+          ></Lottie>
+        </div>
+        <div ref={(ref) => this.checkRef = ref} onMouseOver={() => console.log('mouseOver')}></div>
       </header>
     </div>
-  );
+    )
+  }
 }
-
-export default App;
